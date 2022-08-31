@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <meta charset="utf-8">
+    <title>Mural Scan</title>
+
+    <style>
+        body {
+            margin: 0;
+            background: black;
+        }
+
+        #main {
+          position:fixed;
+          top:0;right:0;bottom:0;left:0;
+          display:flex;
+          align-items:center;
+          justify-content:center;
+          pointer-events: none;
+        }
+
+        #reticle {
+          width:6px;
+          height:6px;
+          border-radius:2px;
+          background: white;
+          opacity:.5;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main"><div id="reticle"></div></div>
+    <script type="module" src="./app.ts"></script>
+</body>
+
+</html>

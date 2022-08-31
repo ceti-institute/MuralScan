@@ -1,0 +1,19 @@
+{
+  "name": "muralscan",
+  "version": "0.0.1",
+  "description": "",
+  "source": "src/index.html",
+  "scripts": {
+    "dev": "parcel",
+    "build": "parcel build"
+  },
+  "author": "Scott Garner",
+  "license": "ISC",
+  "devDependencies": {
+    "parcel": "^2.7.0"
+  },
+  "dependencies": {
+    "@types/three": "^0.143.2",
+    "three": "^0.143.0"
+  }
+}
