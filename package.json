@@ -4,7 +4,7 @@
   "description": "",
   "source": "src/index.html",
   "scripts": {
-    "dev": "parcel",
+    "dev": "parcel  --https src/index.html",
     "build": "parcel build"
   },
   "author": "Scott Garner",
@@ -13,7 +13,7 @@
     "parcel": "^2.7.0"
   },
   "dependencies": {
-    "@types/three": "^0.143.2",
-    "three": "^0.143.0"
+    "@types/three": "^0.144.0",
+    "three": "^0.146.0"
   }
 }

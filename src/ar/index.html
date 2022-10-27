@@ -1,0 +1,205 @@
+<!doctype html>
+<html>
+
+<head>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Cultivate">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <title>Let Us Cultivate Our Garden</title>
+
+  <script src="//cdn.8thwall.com/web/xrextras/xrextras.js"></script>
+  <script src='https://cdn.8thwall.com/web/landing-page/landing-page.js'></script>
+
+  <script async
+    src="//apps.8thwall.com/xrweb?appKey=rqXBO6sSe8LGZHAAur82tcZQt1byuvyJu5fS7f345Ad4KOdBZb2v9b9unZwWbpcsCiEWOJ"></script>
+
+  <style>
+    .hidden {
+      display: none;
+    }
+
+    body {
+      overflow: hidden;
+      width: 100%;
+      height: 100%;
+      margin: -1px 0px 0px 0px !important;
+      padding: 0;
+    }
+
+    #status {
+      position: absolute;
+
+      top: 1em;
+      left: 1em;
+      right: 1em;
+      text-align: center;
+
+      font-family: sans-serif;
+      font-size: 11pt;
+
+      z-index: 999;
+      display: none;
+    }
+
+    #message {
+      text-align: center;
+      background: #e86e24;
+      color: white;
+
+      border-radius: .5em;
+      padding: 1em;
+
+      width: 80%;
+      max-width: 280px;
+      margin: auto;
+    }
+
+    #refresh {
+      z-index: 999;
+      position: absolute;
+      bottom: 1em;
+      left: 1em;
+
+      text-align: center;
+      opacity: .5;
+      display: none;
+    }
+
+    #log {
+      background: black;
+      opacity: .5;
+      color: white;
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      height: 25%;
+    }
+
+    #info {
+      background: #336699;
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      width: 256px;
+      color: white;
+      padding: 1em;
+      font-family: sans-serif;
+    }
+  </style>
+
+  <!-- client code -->
+
+  <script type="module">
+    import App from "../app.ts";
+    import * as THREE from "three";
+
+    console.log(App);
+
+    // Window reference for three.
+    window.THREE = THREE;
+
+    // Wait for window load.
+    window.onload = () => {
+      window.XRExtras ? windowloaded() : window.addEventListener('xrextrasloaded', windowloaded);
+    }
+
+    // Window load handler.
+    const windowloaded = () => {
+      XRExtras.Loading.showLoading({ onxrloaded });
+    }
+
+    // XR load Handler.App
+    const onxrloaded = () => {
+      console.log("XR loaded");
+
+      // Enable world traking.
+      XR8.XrController.configure({ disableWorldTracking: false })
+
+      // Configure landing page.
+      LandingPage.configure({ backgroundColor: "#4e4c46" })
+
+      // Configure camera pipeline.
+      XR8.addCameraPipelineModules([
+        // Existing pipeline modules.
+        XR8.GlTextureRenderer.pipelineModule(),      // Draws the camera feed.
+        XR8.Threejs.pipelineModule(),                // Creates a ThreeJS AR Scene.
+        XR8.XrController.pipelineModule(),           // Enables SLAM tracking.
+        // XRExtras.AlmostThere.pipelineModule(),       // Detects unsupported browsers and gives hints.
+        XRExtras.FullWindowCanvas.pipelineModule(),  // Modifies the canvas to fill the window.
+        XRExtras.Loading.pipelineModule(),           // Manages the loading screen on startup.
+        XRExtras.RuntimeError.pipelineModule(),      // Shows an error image on runtime error.
+        LandingPage.pipelineModule(),
+
+        // Custom pipeline modules.
+        pipelineModule(),
+      ])
+
+      // Open the camera and start running the camera run loop.
+      XR8.run({ canvas: document.getElementById('camerafeed') })
+    }
+
+    const logEvent = ({ name, detail }) => {
+      console.log(`Handling event ${name}, got detail, ${JSON.stringify(detail)}`)
+    }
+
+    const logStatus = ({ name, detail }) => {
+      console.log(`Handling event ${name}, got detail, ${JSON.stringify(detail)}`)
+    }
+
+    // Pipeline module.
+    const pipelineModule = () => {
+      console.log(App);
+      return {
+        name: 'cultivate',
+
+        onStart: () => {
+          const { scene, camera } = XR8.Threejs.xrScene()  // Get the 3js scene from XR
+          App.initialize(scene, camera);
+        },
+
+        onUpdate: () => {
+          App.update();
+        },
+
+        listeners: [
+          { event: 'reality.trackingstatus', process: App.trackingStatus.bind(App) },
+          { event: 'reality.imageloading', process: App.imageLoading.bind(App) },
+          { event: 'reality.imagescanning', process: App.imageScanning.bind(App) },
+          { event: 'reality.imagefound', process: App.imageFound.bind(App) },
+          { event: 'reality.imageupdated', process: App.imageUpdated.bind(App) },
+          { event: 'reality.imagelost', process: App.imageLost.bind(App) },
+        ],
+      }
+    }
+
+  </script>
+</head>
+
+<body>
+  <div id="log"></div>
+  <div id="info">
+
+    <h2>Information</h2>
+
+    <p>A portrait of my father, Isaac Edward Allen, Sr. (1898 –1990). He was a master farmer, a magician with soils
+      raising
+      bountiful crops in 1947 without motorized equipment, with horses and mules in the backwoods of Queen City, in
+      northeast Texas.</p>
+
+    &mdash; Isaka Shamsud-Din
+
+  </div>
+  <canvas id="camerafeed"></canvas>
+
+  <div id="status">
+    <p id="message">Initializing...</p>
+  </div>
+
+</body>
+
+</html>

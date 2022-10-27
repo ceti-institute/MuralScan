@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+  <meta charset="utf-8">
+  <title>Mural Scan</title>
+
+  <style>
+    body {
+      margin: 0;
+      background: black;
+    }
+
+    #main {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    #reticle {
+      width: 6px;
+      height: 6px;
+      border-radius: 2px;
+      background: white;
+      opacity: .5;
+    }
+
+    #info {
+      background: #336699;
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      width: 256px;
+      color: white;
+      padding: 1em;
+      font-family: sans-serif;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="info">
+
+    <h2>Information</h2>
+
+    <p>A portrait of my father, Isaac Edward Allen, Sr. (1898 –1990). He was a master farmer, a magician with soils
+      raising
+      bountiful crops in 1947 without motorized equipment, with horses and mules in the backwoods of Queen City, in
+      northeast Texas.</p>
+
+    &mdash; Isaka Shamsud-Din
+
+  </div>
+  <div id="main">
+    <div id="reticle"></div>
+  </div>
+
+  <script type="module">
+    import App from "../app.ts";
+    import * as THREE from "three";
+    import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer();
+
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.listenToKeyEvents(window);
+    controls.screenSpacePanning = false;
+    // controls.minPolarAngle = controls.maxPolarAngle = Math.PI / 2;
+    // controls.enableDamping = true;
+    // controls.dampingFactor = 0.05;
+    controls.enablePan = true;
+
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    App.initialize(scene, camera, renderer);
+    camera.position.set(1, 1, 1)
+
+    const animate = () => {
+
+      controls.update();
+      App.update();
+      renderer.render(scene, camera);
+
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+
+
+  </script>
+
+
+</body>
+
+</html>
