@@ -61,7 +61,7 @@ class App {
                 const path = paths[i];
                 const name = path?.userData?.node?.id;
 
-                console.log(name);
+                console.log(path?.userData?.node);
 
                 const material = new THREE.MeshBasicMaterial({
                     color: new THREE.Color("#ffff00"),// path.color,
