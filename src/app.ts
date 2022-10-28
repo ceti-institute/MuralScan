@@ -47,7 +47,7 @@ class App {
 
             const paths = data.paths;
             const container = new THREE.Group();
-            container.scale.multiplyScalar(0.001 * 2);
+            container.scale.multiplyScalar(0.001);
             container.scale.y *= - 1;
 
             // container.position.x = -1.6 / 2;
@@ -194,7 +194,7 @@ class App {
         this.log(JSON.stringify(detail.position));
         this.rootContainer.position.copy(detail.position)
         this.rootContainer.quaternion.copy(detail.rotation)
-        this.rootContainer.scale.set(detail.scale, detail.scale, detail.scale)
+        this.rootContainer.scale.set(detail.scale * 2, detail.scale * 2, detail.scale * 2)
     }
 
     imageLost() { }
