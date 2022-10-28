@@ -37,8 +37,11 @@ class App {
 
         this.camera.position.set(0, 1, 0)
 
-        const svgUrl = new URL('Rock-of-Ages.svg', import.meta.url);
-        const textureUrl = new URL("Rock-of-Ages.jpg", import.meta.url);
+        // const svgUrl = new URL('Rock-of-Ages.svg', import.meta.url);
+        // const textureUrl = new URL("Rock-of-Ages.jpg", import.meta.url);
+
+        const svgUrl = new URL('Vanport/Vanport.svg', import.meta.url);
+        const textureUrl = new URL("Vanport/Vanport.png", import.meta.url);
 
         const svg = new SVGLoader().load(svgUrl.toString(), (data) => {
 
@@ -46,8 +49,12 @@ class App {
             const container = new THREE.Group();
             container.scale.multiplyScalar(0.001);
             container.scale.y *= - 1;
-            container.position.x = -1.6 / 2;
-            container.position.y = 2.16 / 2;
+
+            // container.position.x = -1.6 / 2;
+            // container.position.y = 2.16 / 2;
+
+            container.position.x = -.252 / 2;
+            container.position.y = .405 / 2;
 
             for (let i = 0; i < paths.length; i++) {
 
@@ -107,7 +114,10 @@ class App {
 
 
 
-        const planeGeometry = new THREE.PlaneGeometry(1.600, 2.160);
+        // const planeGeometry = new THREE.PlaneGeometry(1.600, 2.160);
+
+        const planeGeometry = new THREE.PlaneGeometry(.252, .405);
+
         const planeMaterial = new THREE.MeshBasicMaterial({ side: THREE.DoubleSide, map: texture });
         this.mesh = new THREE.Mesh(planeGeometry, planeMaterial);
         this.rootContainer.add(this.mesh);
@@ -157,11 +167,9 @@ class App {
             this.selected.material!.opacity = .25;
             this.info!.hidden = false;
             this.log(intersects[intersects.length - 1].object.name);
-
         }
 
-        this.log("update");
-
+        // this.log("update");
     }
 
     // getPixel(uv: THREE.Vector2) {
@@ -195,6 +203,7 @@ class App {
         const element = document.createElement("div");
         element.innerText = (text);
         this.logElement?.prepend(element);
+        console.log(text);
     }
 
 }
