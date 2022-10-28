@@ -116,7 +116,7 @@ class App {
 
         // const planeGeometry = new THREE.PlaneGeometry(1.600, 2.160);
 
-        const planeGeometry = new THREE.PlaneGeometry(1.024, 1.646);
+        const planeGeometry = new THREE.PlaneGeometry(1.024 * .72, 1.646 * .72);
 
         const planeMaterial = new THREE.MeshBasicMaterial({ side: THREE.DoubleSide, map: texture });
         this.mesh = new THREE.Mesh(planeGeometry, planeMaterial);
