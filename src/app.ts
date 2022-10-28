@@ -53,8 +53,8 @@ class App {
             // container.position.x = -1.6 / 2;
             // container.position.y = 2.16 / 2;
 
-            container.position.x = -.252 / 2;
-            container.position.y = .405 / 2;
+            container.position.x = -1.024 / 2;
+            container.position.y = 1.646 / 2;
 
             for (let i = 0; i < paths.length; i++) {
 
@@ -116,7 +116,7 @@ class App {
 
         // const planeGeometry = new THREE.PlaneGeometry(1.600, 2.160);
 
-        const planeGeometry = new THREE.PlaneGeometry(.252, .405);
+        const planeGeometry = new THREE.PlaneGeometry(1.024, 1.646);
 
         const planeMaterial = new THREE.MeshBasicMaterial({ side: THREE.DoubleSide, map: texture });
         this.mesh = new THREE.Mesh(planeGeometry, planeMaterial);
@@ -194,7 +194,7 @@ class App {
         this.log(JSON.stringify(detail.position));
         this.rootContainer.position.copy(detail.position)
         this.rootContainer.quaternion.copy(detail.rotation)
-        this.rootContainer.scale.set(detail.scale * 2, detail.scale * 2, detail.scale * 2)
+        this.rootContainer.scale.set(detail.scale, detail.scale, detail.scale)
     }
 
     imageLost() { }
