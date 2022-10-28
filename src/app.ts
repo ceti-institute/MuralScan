@@ -47,14 +47,14 @@ class App {
 
             const paths = data.paths;
             const container = new THREE.Group();
-            container.scale.multiplyScalar(0.001);
+            container.scale.multiplyScalar(0.001 * .72);
             container.scale.y *= - 1;
 
             // container.position.x = -1.6 / 2;
             // container.position.y = 2.16 / 2;
 
-            container.position.x = -1.024 / 2;
-            container.position.y = 1.646 / 2;
+            container.position.x = -1.024 * .72 / 2;
+            container.position.y = 1.646 * .72 / 2;
 
             for (let i = 0; i < paths.length; i++) {
 
