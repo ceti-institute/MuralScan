@@ -47,7 +47,7 @@ class App {
 
             const paths = data.paths;
             const container = new THREE.Group();
-            container.scale.multiplyScalar(0.001);
+            container.scale.multiplyScalar(0.001 * 2);
             container.scale.y *= - 1;
 
             // container.position.x = -1.6 / 2;
