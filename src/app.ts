@@ -6,6 +6,8 @@ interface FigureData {
     caption: string
 }
 
+const offset: THREE.Vector3 = new THREE.Vector3(0, 0, -0.786379);
+
 const data: FigureData[] = [
     {
         "tag": "FigureA",
@@ -37,6 +39,7 @@ class App {
     image;
     context: CanvasRenderingContext2D;
 
+    origin: THREE.Group;
     rootContainer: THREE.Group;
 
     selected: THREE.Mesh | null = null;
@@ -56,8 +59,15 @@ class App {
         // this.renderer.setSize(window.innerWidth, window.innerHeight);
         // document.body.appendChild(this.renderer.domElement);
 
+        this.origin = new THREE.Group();
+        const locatorSphere = new THREE.Mesh(new THREE.SphereGeometry(.1), new THREE.MeshBasicMaterial());
+        this.origin.add(locatorSphere);
+
+        this.scene.add(this.origin);
+
         this.rootContainer = new THREE.Group();
-        this.scene.add(this.rootContainer);
+        this.origin.add(this.rootContainer);
+        // this.scene.add(this.rootContainer);
 
         this.camera.position.set(0, 1, 0)
 
@@ -231,6 +241,33 @@ class App {
     }
 
     imageLost() { }
+
+    wayspotFound({ detail }) {
+        this.log("WAYSPOT FOUND");
+
+        this.log(detail.position);
+
+        this.rootContainer.position.copy(offset);
+
+        this.origin.position.copy(detail.position);
+        this.origin.quaternion.copy(detail.rotation)
+    }
+
+    wayspotUpdated({ detail }) {
+        this.log("WAYSPOT UPDATED");
+
+        this.rootContainer.position.copy(offset);
+        this.origin.position.copy(detail.position);
+        this.origin.quaternion.copy(detail.rotation)
+    }
+
+    wayspotLost({ detail }) {
+        this.log("WAYSPOT LOST");
+
+        this.rootContainer.position.copy(offset);
+        this.origin.position.copy(detail.position);
+        this.origin.quaternion.copy(detail.rotation)
+    }
 
     log(text: string) {
         const element = document.createElement("div");
