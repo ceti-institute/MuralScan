@@ -8,7 +8,8 @@ interface FigureData {
 
 // const offset: THREE.Vector3 = new THREE.Vector3(0, 0, -0.786379);
 const offsetPosition: THREE.Vector3 = new THREE.Vector3(-3.4342, 0.263576, -5.31372);
-const offsetRotation: THREE.Euler = new THREE.Euler(0, -124, 0);
+const offsetRotation: THREE.Euler = new THREE.Euler(0, 0.9998188433, 0);
+const offsetScale: THREE.Vector3 = new THREE.Vector3(4, 4, 4);
 
 const data: FigureData[] = [
     {
@@ -251,6 +252,7 @@ class App {
 
         this.rootContainer.position.copy(offsetPosition);
         this.rootContainer.rotation.copy(offsetRotation);
+        this.rootContainer.scale.copy(offsetScale);
 
         this.origin.position.copy(detail.position);
         this.origin.quaternion.copy(detail.rotation)
@@ -261,6 +263,7 @@ class App {
 
         this.rootContainer.position.copy(offsetPosition);
         this.rootContainer.rotation.copy(offsetRotation);
+        this.rootContainer.scale.copy(offsetScale);
 
         this.origin.position.copy(detail.position);
         this.origin.quaternion.copy(detail.rotation)
@@ -271,6 +274,7 @@ class App {
 
         this.rootContainer.position.copy(offsetPosition);
         this.rootContainer.rotation.copy(offsetRotation);
+        this.rootContainer.scale.copy(offsetScale);
 
         this.origin.position.copy(detail.position);
         this.origin.quaternion.copy(detail.rotation)
