@@ -8,7 +8,7 @@ interface FigureData {
 
 // const offset: THREE.Vector3 = new THREE.Vector3(0, 0, -0.786379);
 const offsetPosition: THREE.Vector3 = new THREE.Vector3(-3.4342, 0.263576, -5.31372);
-const offsetRotation: THREE.Euler = new THREE.Euler(0, 124, 0);
+const offsetRotation: THREE.Euler = new THREE.Euler(0, -124, 0);
 
 const data: FigureData[] = [
     {
