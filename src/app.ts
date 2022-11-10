@@ -1,6 +1,30 @@
 import * as THREE from 'three';
 import { SVGLoader } from 'three/examples/jsm/loaders/SVGLoader';
 
+interface FigureData {
+    tag: string,
+    caption: string
+}
+
+const data: FigureData[] = [
+    {
+        "tag": "FigureA",
+        "caption": "This is Figure A."
+    },
+    {
+        "tag": "FigureB",
+        "caption": "This is Figure B."
+    },
+    {
+        "tag": "FigureC",
+        "caption": "This is Figure C."
+    },
+    {
+        "tag": "FigureD",
+        "caption": "This is Figure D."
+    }
+];
+
 class App {
     info: HTMLElement | null;
     logElement: HTMLElement | null;
@@ -167,6 +191,15 @@ class App {
             this.selected.material!.opacity = .25;
             this.info!.hidden = false;
             this.log(intersects[intersects.length - 1].object.name);
+
+            const tag = intersects[intersects.length - 1].object.name;
+            const figureData: FigureData | null = this.findFigure(tag);
+            this.log(JSON.stringify(figureData));
+
+            if (figureData != null) {
+                this.info.innerText = figureData.caption;
+                this.log(JSON.stringify(figureData));
+            }
         }
 
         // this.log("update");
@@ -204,6 +237,15 @@ class App {
         element.innerText = (text);
         this.logElement?.prepend(element);
         console.log(text);
+    }
+
+    findFigure(tag: string): FigureData | null {
+        for (const currentFigureData of data) {
+            if (currentFigureData.tag == tag) {
+                return currentFigureData;
+            }
+        }
+        return null;
     }
 
 }
