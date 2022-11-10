@@ -6,7 +6,9 @@ interface FigureData {
     caption: string
 }
 
-const offset: THREE.Vector3 = new THREE.Vector3(0, 0, -0.786379);
+// const offset: THREE.Vector3 = new THREE.Vector3(0, 0, -0.786379);
+const offsetPosition: THREE.Vector3 = new THREE.Vector3(-3.4342, 0.263576, -5.31372);
+const offsetRotation: THREE.Euler = new THREE.Euler(0, 124, 0);
 
 const data: FigureData[] = [
     {
@@ -247,7 +249,8 @@ class App {
 
         this.log(detail.position);
 
-        this.rootContainer.position.copy(offset);
+        this.rootContainer.position.copy(offsetPosition);
+        this.rootContainer.rotation.copy(offsetRotation);
 
         this.origin.position.copy(detail.position);
         this.origin.quaternion.copy(detail.rotation)
@@ -256,7 +259,9 @@ class App {
     wayspotUpdated({ detail }) {
         this.log("WAYSPOT UPDATED");
 
-        this.rootContainer.position.copy(offset);
+        this.rootContainer.position.copy(offsetPosition);
+        this.rootContainer.rotation.copy(offsetRotation);
+
         this.origin.position.copy(detail.position);
         this.origin.quaternion.copy(detail.rotation)
     }
@@ -264,7 +269,9 @@ class App {
     wayspotLost({ detail }) {
         this.log("WAYSPOT LOST");
 
-        this.rootContainer.position.copy(offset);
+        this.rootContainer.position.copy(offsetPosition);
+        this.rootContainer.rotation.copy(offsetRotation);
+
         this.origin.position.copy(detail.position);
         this.origin.quaternion.copy(detail.rotation)
     }
