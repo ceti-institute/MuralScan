@@ -6,10 +6,19 @@ interface FigureData {
     caption: string
 }
 
+// Scott's house
 // const offset: THREE.Vector3 = new THREE.Vector3(0, 0, -0.786379);
+
+// CETI Lab
 const offsetPosition: THREE.Vector3 = new THREE.Vector3(-3.4342, 0.263576, -5.31372);
 const offsetRotation: THREE.Euler = new THREE.Euler(0, 0.9998188433, 0);
-const offsetScale: THREE.Vector3 = new THREE.Vector3(4, 4, 4);
+const offsetScale: THREE.Vector3 = new THREE.Vector3(1, 1, 1);
+
+// PSU Stairs
+// e6a0180fee204be3aed2724a120ed692.107
+// const offsetPosition: THREE.Vector3 = new THREE.Vector3(-2.17321, 0, -1.09416);
+// const offsetRotation: THREE.Euler = new THREE.Euler(0, 2.412812971, 0);
+// const offsetScale: THREE.Vector3 = new THREE.Vector3(4, 4, 4);
 
 const data: FigureData[] = [
     {
@@ -77,8 +86,8 @@ class App {
         // const svgUrl = new URL('Rock-of-Ages.svg', import.meta.url);
         // const textureUrl = new URL("Rock-of-Ages.jpg", import.meta.url);
 
-        const svgUrl = new URL('Vanport/Vanport.svg', import.meta.url);
-        const textureUrl = new URL("Vanport/Vanport.png", import.meta.url);
+        const svgUrl = new URL('Vanport/VanportHigh.svg', import.meta.url);
+        const textureUrl = new URL("Vanport/VanportHigh.png", import.meta.url);
 
         const svg = new SVGLoader().load(svgUrl.toString(), (data) => {
 
@@ -105,7 +114,7 @@ class App {
                     side: THREE.DoubleSide,
                     // depthWrite: false,
                     transparent: true,
-                    opacity: 0
+                    // opacity: 0
                 });
 
                 const shapes = SVGLoader.createShapes(path);
@@ -237,10 +246,10 @@ class App {
     }
     imageUpdated({ detail }) {
 
-        this.log(JSON.stringify(detail.position));
-        this.rootContainer.position.copy(detail.position)
-        this.rootContainer.quaternion.copy(detail.rotation)
-        this.rootContainer.scale.set(detail.scale, detail.scale, detail.scale)
+        // this.log(JSON.stringify(detail.position));
+        // this.rootContainer.position.copy(detail.position)
+        // this.rootContainer.quaternion.copy(detail.rotation)
+        // this.rootContainer.scale.set(detail.scale, detail.scale, detail.scale)
     }
 
     imageLost() { }
