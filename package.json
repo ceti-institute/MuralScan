@@ -10,7 +10,8 @@
   "author": "Scott Garner",
   "license": "ISC",
   "devDependencies": {
-    "parcel": "^2.7.0"
+    "parcel": "^2.7.0",
+    "parcel-reporter-static-files-copy": "^1.4.0"
   },
   "dependencies": {
     "@types/three": "^0.144.0",

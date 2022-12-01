@@ -1,0 +1,41 @@
+{
+    "svgUrl": "/murals/Vanport/VanportHigh.svg",
+    "textureUrl": "/murals/Vanport/VanportHigh.png",
+    "figures": [
+        {
+            "tag": "FigureA",
+            "caption": "This is Figure A.",
+            "detail": "This is detailed information about figure A. It could be any complex bit of data."
+        },
+        {
+            "tag": "FigureB",
+            "caption": "This is Figure B.",
+            "detail": "This is detailed information about figure B. It could be any complex bit of data."
+        },
+        {
+            "tag": "JohnDanielsA",
+            "caption": "This is JohnDanielsA.",
+            "detail": "This is detailed information about JohnDanielsA. It could be any complex bit of data."
+        },
+        {
+            "tag": "JohnDanielsB",
+            "caption": "This is JohnDanielsB.",
+            "detail": "This is detailed information about JohnDanielsB. It could be any complex bit of data."
+        },
+        {
+            "tag": "Scarf",
+            "caption": "This is a scarf.",
+            "detail": "This is detailed information about Scarf. It could be any complex bit of data."
+        },
+        {
+            "tag": "House",
+            "caption": "This is a house.",
+            "detail": "This is detailed information about House. It could be any complex bit of data."
+        },
+        {
+            "tag": "TotemPole",
+            "caption": "This is a totem pole.",
+            "detail": "This is detailed information about TotemPole. It could be any complex bit of data."
+        }
+    ]
+}
