@@ -1,9 +1,11 @@
 import * as THREE from 'three';
+import { CurvePath } from 'three';
 import { SVGLoader } from 'three/examples/jsm/loaders/SVGLoader';
 
 interface FigureData {
     tag: string,
-    caption: string
+    caption: string,
+    detail: string
 }
 
 interface Offset {
@@ -22,44 +24,65 @@ interface WayspotData {
 // const offset: THREE.Vector3 = new THREE.Vector3(0, 0, -0.786379);
 
 // CETI Lab
-const offsetPosition: THREE.Vector3 = new THREE.Vector3(-3.4342, 0.263576, -5.31372);
-const offsetRotation: THREE.Euler = new THREE.Euler(0, 0.9998188433, 0);
-const offsetScale: THREE.Vector3 = new THREE.Vector3(1, 1, 1);
+// const offsetPosition: THREE.Vector3 = new THREE.Vector3(-3.4342, 0.263576, -5.31372);
+// const offsetRotation: THREE.Euler = new THREE.Euler(0, 0.9998188433, 0);
+// const offsetScale: THREE.Vector3 = new THREE.Vector3(1, 1, 1);
 
 // PSU Stairs
 // e6a0180fee204be3aed2724a120ed692.107
-// const offsetPosition: THREE.Vector3 = new THREE.Vector3(-2.17321, 0, -1.09416);
-// const offsetRotation: THREE.Euler = new THREE.Euler(0, 2.412812971, 0);
-// const offsetScale: THREE.Vector3 = new THREE.Vector3(4, 4, 4);
+const offsetPosition: THREE.Vector3 = new THREE.Vector3(-2.17321, 0, -1.09416);
+const offsetRotation: THREE.Euler = new THREE.Euler(0, 2.412812971, 0);
+const offsetScale: THREE.Vector3 = new THREE.Vector3(1, 1, 1);
 
 const data: FigureData[] = [
     {
         "tag": "FigureA",
-        "caption": "This is Figure A."
+        "caption": "This is Figure A.",
+        "detail": "Detail."
     },
     {
         "tag": "FigureB",
-        "caption": "This is Figure B."
+        "caption": "This is Figure B.",
+        "detail": "Detail."
+
     },
     {
-        "tag": "FigureC",
-        "caption": "This is Figure C."
+        "tag": "JohnDanielsA",
+        "caption": "This is JohnDanielsA.",
+        "detail": "Detail."
     },
     {
-        "tag": "FigureD",
-        "caption": "This is Figure D."
+        "tag": "JohnDanielsB",
+        "caption": "This is JohnDanielsB.",
+        "detail": "Detail."
+    },
+    {
+        "tag": "Scarf",
+        "caption": "This is a scarf.",
+        "detail": "Detail."
+    },
+    {
+        "tag": "House",
+        "caption": "This is a house.",
+        "detail": "Detail."
+    },
+    {
+        "tag": "TotemPole",
+        "caption": "This is a totem pole.",
+        "detail": "Detail."
     }
 ];
 
 class App {
-    info: HTMLElement | null;
+    caption: HTMLElement | null;
+    detail: HTMLElement | null;
     logElement: HTMLElement | null;
 
     scene: THREE.Scene;
     camera: THREE.PerspectiveCamera;
     renderer: THREE.WebGLRenderer;
 
-    mesh: THREE.Mesh;
+    planeMesh: THREE.Mesh;
     image;
     context: CanvasRenderingContext2D;
 
@@ -69,12 +92,14 @@ class App {
     selected: THREE.Mesh | null = null;
 
     initialize(scene, camera, renderer) {
-        this.info = document.getElementById("info");
+        this.caption = document.getElementById("caption");
+        this.detail = document.getElementById("detail");
+
         this.logElement = document.getElementById("log");
         // console.log(this.info)
-        this.info!.hidden = true;
 
-        console.log(scene, camera);
+        this.caption.hidden = true;
+        this.detail!.hidden = true;
 
         this.scene = scene;// || new THREE.Scene();
         this.camera = camera;// || new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -98,35 +123,36 @@ class App {
         // const svgUrl = new URL('Rock-of-Ages.svg', import.meta.url);
         // const textureUrl = new URL("Rock-of-Ages.jpg", import.meta.url);
 
+        const svgContainer = new THREE.Group();
         const svgUrl = new URL('Vanport/VanportHigh.svg', import.meta.url);
+
         const textureUrl = new URL("Vanport/VanportHigh.png", import.meta.url);
 
         const svg = new SVGLoader().load(svgUrl.toString(), (data) => {
 
             const paths = data.paths;
-            const container = new THREE.Group();
-            container.scale.multiplyScalar(0.001 * .72);
-            container.scale.y *= - 1;
+            svgContainer.scale.multiplyScalar(0.001);
+            svgContainer.scale.y *= - 1;
 
             // container.position.x = -1.6 / 2;
             // container.position.y = 2.16 / 2;
 
-            container.position.x = -1.024 * .72 / 2;
-            container.position.y = 1.646 * .72 / 2;
+            // container.position.x = -1.024 * .72 / 2;
+            // container.position.y = 1.646 * .72 / 2;
 
             for (let i = 0; i < paths.length; i++) {
 
                 const path = paths[i];
                 const name = path?.userData?.node?.id;
 
-                console.log(path?.userData?.node);
+                // console.log(path?.userData?.node);
 
                 const material = new THREE.MeshBasicMaterial({
                     color: new THREE.Color("#ffff00"),// path.color,
                     side: THREE.DoubleSide,
                     // depthWrite: false,
                     transparent: true,
-                    // opacity: 0
+                    opacity: 0
                 });
 
                 const shapes = SVGLoader.createShapes(path);
@@ -134,19 +160,21 @@ class App {
                 for (let j = 0; j < shapes.length; j++) {
 
                     const shape = shapes[j];
-                    console.log(shape);
+
+
+                    //console.log(shape);
                     const geometry = new THREE.ShapeGeometry(shape);
                     const mesh = new THREE.Mesh(geometry, material);
                     mesh.name = name;
                     mesh.layers.enable(1);
                     mesh.position.z = 1 + j;
-                    container.add(mesh);
 
+                    svgContainer.add(mesh);
                 }
 
             }
 
-            this.rootContainer.add(container);
+            this.rootContainer.add(svgContainer);
 
         });
 
@@ -166,19 +194,29 @@ class App {
 
         // });
 
-        const texture = new THREE.TextureLoader().load(textureUrl.toString(), (texture) => {
-
-        });
 
 
 
         // const planeGeometry = new THREE.PlaneGeometry(1.600, 2.160);
 
-        const planeGeometry = new THREE.PlaneGeometry(1.024 * .72, 1.646 * .72);
+        // const planeGeometry = new THREE.PlaneGeometry(1.024 * .72, 1.646 * .72);
+        const planeGeometry = new THREE.PlaneGeometry(1, 1);
 
-        const planeMaterial = new THREE.MeshBasicMaterial({ side: THREE.DoubleSide, map: texture });
-        this.mesh = new THREE.Mesh(planeGeometry, planeMaterial);
-        this.rootContainer.add(this.mesh);
+        const planeTexture = new THREE.TextureLoader().load(textureUrl.toString(),
+            (texture) => {
+                // Image plane scale.
+                this.planeMesh.scale.setX(texture.image.width * .001);
+                this.planeMesh.scale.setY(texture.image.height * .001);
+
+                // SVG container offset.
+                svgContainer.position.x = (-texture.image.width * .001) / 2;
+                svgContainer.position.y = (texture.image.height * .001) / 2;
+
+            });
+
+        const planeMaterial = new THREE.MeshBasicMaterial({ side: THREE.DoubleSide, map: planeTexture });
+        this.planeMesh = new THREE.Mesh(planeGeometry, planeMaterial);
+        this.rootContainer.add(this.planeMesh);
 
 
 
@@ -218,12 +256,11 @@ class App {
         const intersects = raycaster.intersectObjects(this.scene.children);
 
         if (this.selected) (this.selected.material as THREE.Material).opacity = 0;
-        this.info!.hidden = true;
+        this.caption!.hidden = true;
 
         if (intersects.length > 0) {
             this.selected = intersects[intersects.length - 1].object as THREE.Mesh;
             this.selected.material!.opacity = .25;
-            this.info!.hidden = false;
             this.log(intersects[intersects.length - 1].object.name);
 
             const tag = intersects[intersects.length - 1].object.name;
@@ -231,7 +268,9 @@ class App {
             this.log(JSON.stringify(figureData));
 
             if (figureData != null) {
-                this.info.innerText = figureData.caption;
+                this.caption!.hidden = false;
+                this.caption.innerText = figureData.caption;
+                this.detail.innerText = figureData.detail;
                 this.log(JSON.stringify(figureData));
             }
         }
@@ -316,7 +355,6 @@ class App {
         }
         return null;
     }
-
 }
 
 export default new App();

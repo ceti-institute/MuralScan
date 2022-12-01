@@ -4,6 +4,7 @@
 <head>
   <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
   <meta charset="utf-8">
+
   <title>Mural Scan</title>
 
   <style>
@@ -32,32 +33,66 @@
       opacity: .5;
     }
 
-    #info {
+    #caption {
       background: #336699;
       position: absolute;
-      top: 16px;
-      left: 16px;
-      width: 256px;
+      top: 1em;
+      max-width: 80%;
       color: white;
       padding: 1em;
       font-family: sans-serif;
+      display: inline-block;
+      justify-self: start;
+    }
+
+    #detail {
+      background: #336699;
+      color: white;
+      padding: 1em;
+      font-family: sans-serif;
+      display: inline-block;
+    }
+
+    #info {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      display: flex;
+
+      flex-direction: column;
+
+      pointer-events: none;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #log {
+      background: black;
+      opacity: .5;
+      color: white;
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      height: 25%;
     }
   </style>
 </head>
 
 <body>
+
   <div id="info">
-
-    <h2>Information</h2>
-
-    <p>A portrait of my father, Isaac Edward Allen, Sr. (1898 –1990). He was a master farmer, a magician with soils
-      raising
-      bountiful crops in 1947 without motorized equipment, with horses and mules in the backwoods of Queen City, in
-      northeast Texas.</p>
-
-    &mdash; Isaka Shamsud-Din
-
+    <div id="caption">Info...</div>
+    <div id="detail">
+      <h2>Heading</h2>
+      Detail...
+      --Done
+    </div>
   </div>
+
+  <div id="log"></div>
   <div id="main">
     <div id="reticle"></div>
   </div>
