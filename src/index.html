@@ -9,4 +9,24 @@
 <body>
     <a href="./ar/index.html">AR</a>
     <a href="./dev/index.html">Dev</a>
+
+    <ul id="list"></ul>
+
+    <script>
+        let ul = document.getElementById("list");
+        fetch("content.json")
+            .then((response) => response.json())
+            .then((data) => {
+                for (let mural of data.murals) {
+                    console.log(mural);
+                    let li = document.createElement("li");
+                    let a = document.createElement("a");
+                    a.innerHTML = mural;
+                    a.href = "google.com"
+                    li.append(a);
+                    ul.append(li);
+                }
+            });
+
+    </script>
 </body>
