@@ -76,8 +76,8 @@ class App {
                 this.initializeMural();
             });
 
-        fetch("/wayspots/Scott.json")
-            // fetch("/wayspots/CETI.json")
+        // fetch("/wayspots/Scott.json")
+        fetch("/wayspots/CETI.json")
             .then((response) => response.json())
             .then((data) => {
                 this.wayspotData = data;
@@ -134,35 +134,7 @@ class App {
             this.deselect();
         }
 
-        // this.log("update");
     }
-
-    // getPixel(uv: THREE.Vector2) {
-    //     if (this.context) {
-    //         return this.context.getImageData(this.image.width * uv.x, this.image.height * uv.y, 1, 1).data;
-    //     }
-    // }
-
-
-
-    // 8th Wall
-
-
-    trackingStatus() { }
-    imageLoading() { }
-    imageScanning() { }
-    imageFound() {
-        this.log("FOUND");
-    }
-    imageUpdated({ detail }) {
-
-        // this.log(JSON.stringify(detail.position));
-        // this.rootContainer.position.copy(detail.position)
-        // this.rootContainer.quaternion.copy(detail.rotation)
-        // this.rootContainer.scale.set(detail.scale, detail.scale, detail.scale)
-    }
-
-    imageLost() { }
 
     deselect() {
         if (this.selected) (this.selected.material as THREE.Material).opacity = 0;
@@ -181,14 +153,15 @@ class App {
         this.detail!.style.visibility = (state == "visible") ? "hidden" : "visible";
     }
 
+    // 8th Wall
+    trackingStatus() { }
+
     wayspotFound({ detail }) {
         this.log("WAYSPOT FOUND");
 
         this.log(detail.position);
 
-        this.rootContainer.position.copy(this.wayspotData.offset.position);
-        this.rootContainer.rotation.copy(this.wayspotData.offset.rotation);
-        this.rootContainer.scale.copy(this.wayspotData.offset.scale);
+        this.applyOffset();
 
         this.origin.position.copy(detail.position);
         this.origin.quaternion.copy(detail.rotation)
@@ -197,23 +170,26 @@ class App {
     wayspotUpdated({ detail }) {
         this.log("WAYSPOT UPDATED");
 
-        this.rootContainer.position.copy(this.wayspotData.offset.position);
-        this.rootContainer.rotation.copy(this.wayspotData.offset.rotation);
-        this.rootContainer.scale.copy(this.wayspotData.offset.scale);
+        this.applyOffset();
+
+        this.origin.position.copy(detail.position);
+        this.origin.quaternion.copy(detail.rotation)
+   }
+
+    wayspotLost({ detail }) {
+        this.log("WAYSPOT LOST");
+
+        this.applyOffset();
 
         this.origin.position.copy(detail.position);
         this.origin.quaternion.copy(detail.rotation)
     }
 
-    wayspotLost({ detail }) {
-        this.log("WAYSPOT LOST");
-
+    applyOffset() {
         this.rootContainer.position.copy(this.wayspotData.offset.position);
-        this.rootContainer.rotation.copy(this.wayspotData.offset.rotation);
+        let {x,y,z} = this.wayspotData.offset.rotation;
+        this.rootContainer.rotation.set(x,y,z);
         this.rootContainer.scale.copy(this.wayspotData.offset.scale);
-
-        this.origin.position.copy(detail.position);
-        this.origin.quaternion.copy(detail.rotation)
     }
 
     log(text: string) {
