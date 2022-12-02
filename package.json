@@ -10,7 +10,9 @@
   "author": "Scott Garner",
   "license": "ISC",
   "devDependencies": {
-    "parcel": "^2.7.0",
+    "@parcel/transformer-sass": "^2.8.0",
+    "bootstrap-icons": "^1.10.2",
+    "parcel": "2.8.0",
     "parcel-reporter-static-files-copy": "^1.4.0"
   },
   "dependencies": {

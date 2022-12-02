@@ -2,6 +2,7 @@
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="index.scss" />
 </head>
 
 </html>
@@ -10,23 +11,35 @@
     <a href="./ar/index.html">AR</a>
     <a href="./dev/index.html">Dev</a>
 
-    <ul id="list"></ul>
+    <div class="container">
+        <div id="list" class="list-group"></div>
+    </div>
 
-    <script>
-        let ul = document.getElementById("list");
-        fetch("content.json")
-            .then((response) => response.json())
-            .then((data) => {
-                for (let mural of data.murals) {
-                    console.log(mural);
-                    let li = document.createElement("li");
-                    let a = document.createElement("a");
-                    a.innerHTML = mural;
-                    a.href = "google.com"
-                    li.append(a);
-                    ul.append(li);
-                }
-            });
+    <script async
+        src="//apps.8thwall.com/xrweb?appKey=rqXBO6sSe8LGZHAAur82tcZQt1byuvyJu5fS7f345Ad4KOdBZb2v9b9unZwWbpcsCiEWOJ"></script>
+
+    <script module>
+        const onxrloaded = () => {
+
+            let compatible = XR8.XrDevice.isDeviceBrowserCompatible({ allowedDevices: XR8.XrConfig.device().MOBILE });
+
+            let list = document.getElementById("list");
+            fetch("content.json")
+                .then((response) => response.json())
+                .then((data) => {
+                    for (let mural of data.murals) {
+                        console.log(mural);
+                        let a = document.createElement("a");
+                        a.classList.add("list-group-item");
+                        a.classList.add("list-group-item-action");
+                        a.innerHTML = mural;
+                        a.href = ((compatible) ? "/ar/#" : "/dev/#") + mural;
+                        list.append(a);
+                    }
+                });
+        }
+
+        window.XR8 ? onxrloaded() : window.addEventListener('xrloaded', onxrloaded)
 
     </script>
 </body>

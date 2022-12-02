@@ -66,8 +66,11 @@ class App {
         });
 
         // Fetch data.
+        let mural = window.location.hash.substring(1);
         // fetch("/murals/RockofAges.json")
-        fetch("/murals/Vanport.json")
+        let muralUrl = `/murals/${mural}.json`;
+        console.log(muralUrl);
+        fetch(muralUrl)
             .then((response) => response.json())
             .then((data) => {
                 this.muralData = data;
@@ -76,8 +79,8 @@ class App {
                 this.initializeMural();
             });
 
-        // fetch("/wayspots/Scott.json")
-        fetch("/wayspots/CETI.json")
+        fetch("/wayspots/Scott.json")
+            // fetch("/wayspots/CETI.json")
             .then((response) => response.json())
             .then((data) => {
                 this.wayspotData = data;
@@ -157,7 +160,7 @@ class App {
     trackingStatus() { }
 
     wayspotFound({ detail }) {
-        this.log("WAYSPOT FOUND");
+        this.log("WAYSPOT FOUND:" + detail.name);
 
         this.log(detail.position);
 
@@ -174,7 +177,7 @@ class App {
 
         this.origin.position.copy(detail.position);
         this.origin.quaternion.copy(detail.rotation)
-   }
+    }
 
     wayspotLost({ detail }) {
         this.log("WAYSPOT LOST");
@@ -187,8 +190,8 @@ class App {
 
     applyOffset() {
         this.rootContainer.position.copy(this.wayspotData.offset.position);
-        let {x,y,z} = this.wayspotData.offset.rotation;
-        this.rootContainer.rotation.set(x,y,z);
+        let { x, y, z } = this.wayspotData.offset.rotation;
+        this.rootContainer.rotation.set(x, y, z);
         this.rootContainer.scale.copy(this.wayspotData.offset.scale);
     }
 

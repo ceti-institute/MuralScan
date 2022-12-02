@@ -1,0 +1,53 @@
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+body {
+    margin: 0;
+    background: black;
+    user-select: none;
+}
+
+#main {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+}
+
+#reticle {
+    width: 6px;
+    height: 6px;
+    border-radius: 2px;
+    background: white;
+    opacity: .5;
+}
+
+#caption {
+    pointer-events: auto;
+    cursor: pointer;
+}
+
+#detail {
+    pointer-events: auto;
+    cursor: pointer;
+}
+
+#info {
+    pointer-events: none;
+}
+
+#log {
+    background: black;
+    opacity: .5;
+    color: white;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 25%;
+    overflow: scroll;
+}
