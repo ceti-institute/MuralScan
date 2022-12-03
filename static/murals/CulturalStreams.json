@@ -1,0 +1,12 @@
+{
+    "svgUrl": "/murals/CulturalStreams/CulturalStreams.svg",
+    "textureUrl": "/murals/CulturalStreams/CulturalStreams.png",
+    "figures": [
+        {
+            "tag": "FigureA",
+            "caption": "This is Figure A.",
+            "detail": "This is detailed information about figure A. It could be any complex bit of data."
+        }
+    ],
+    "scale": 2
+}

@@ -17,6 +17,7 @@ interface MuralData {
     svgUrl: string,
     textureUrl: string,
     figures: FigureData[]
+    scale: number;
 }
 
 interface WayspotData {
@@ -74,13 +75,14 @@ class App {
             .then((response) => response.json())
             .then((data) => {
                 this.muralData = data;
+                this.muralData.scale = this.muralData.scale || 1;
                 console.log(data);
 
                 this.initializeMural();
             });
 
-        fetch("/wayspots/Scott.json")
-            // fetch("/wayspots/CETI.json")
+        // fetch("/wayspots/Scott.json")
+        fetch("/wayspots.json")
             .then((response) => response.json())
             .then((data) => {
                 this.wayspotData = data;
@@ -99,6 +101,7 @@ class App {
         this.scene.add(this.origin);
 
         this.rootContainer = new THREE.Group();
+        // this.rootContainer.visible = false;
         this.origin.add(this.rootContainer);
 
         this.camera.position.set(0, 1, 0)
@@ -164,35 +167,47 @@ class App {
 
         this.log(detail.position);
 
-        this.applyOffset();
+        this.applyOffset(detail.name);
 
         this.origin.position.copy(detail.position);
         this.origin.quaternion.copy(detail.rotation)
+
+        this.rootContainer.visible = true;
     }
 
     wayspotUpdated({ detail }) {
         this.log("WAYSPOT UPDATED");
 
-        this.applyOffset();
+        this.applyOffset(detail.name);
 
         this.origin.position.copy(detail.position);
         this.origin.quaternion.copy(detail.rotation)
+
+        this.rootContainer.visible = true;
     }
 
     wayspotLost({ detail }) {
         this.log("WAYSPOT LOST");
 
-        this.applyOffset();
+        this.applyOffset(detail.name);
 
         this.origin.position.copy(detail.position);
         this.origin.quaternion.copy(detail.rotation)
+
+        this.rootContainer.visible = false;
     }
 
-    applyOffset() {
-        this.rootContainer.position.copy(this.wayspotData.offset.position);
-        let { x, y, z } = this.wayspotData.offset.rotation;
-        this.rootContainer.rotation.set(x, y, z);
-        this.rootContainer.scale.copy(this.wayspotData.offset.scale);
+    applyOffset(wayspotName: string) {
+
+        if (wayspotName in this.wayspotData) {
+            let data = this.wayspotData[wayspotName]
+
+            this.rootContainer.position.copy(data.offset.position);
+            let { x, y, z } = data.offset.rotation;
+            this.rootContainer.rotation.set(x, y, z);
+            this.rootContainer.scale.copy(data.offset.scale);
+        }
+
     }
 
     log(text: string) {
@@ -207,7 +222,7 @@ class App {
         const svg = new SVGLoader().load(this.muralData.svgUrl.toString(), (data) => {
 
             const paths = data.paths;
-            this.svgContainer.scale.multiplyScalar(0.001);
+            this.svgContainer.scale.multiplyScalar(0.001 * this.muralData.scale);
             this.svgContainer.scale.y *= - 1;
 
             // container.position.x = -1.6 / 2;
@@ -237,7 +252,6 @@ class App {
 
                     const shape = shapes[j];
 
-
                     //console.log(shape);
                     const geometry = new THREE.ShapeGeometry(shape);
                     const mesh = new THREE.Mesh(geometry, material);
@@ -259,12 +273,12 @@ class App {
         const planeTexture = new THREE.TextureLoader().load(this.muralData.textureUrl.toString(),
             (texture) => {
                 // Image plane scale.
-                this.planeMesh.scale.setX(texture.image.width * .001);
-                this.planeMesh.scale.setY(texture.image.height * .001);
+                this.planeMesh.scale.setX(texture.image.width * .001 * this.muralData.scale);
+                this.planeMesh.scale.setY(texture.image.height * .001 * this.muralData.scale);
 
                 // SVG container offset.
-                this.svgContainer.position.x = (-texture.image.width * .001) / 2;
-                this.svgContainer.position.y = (texture.image.height * .001) / 2;
+                this.svgContainer.position.x = (-texture.image.width * .001 * this.muralData.scale) / 2;
+                this.svgContainer.position.y = (texture.image.height * .001 * this.muralData.scale) / 2;
 
             });
 

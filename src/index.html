@@ -8,11 +8,18 @@
 </html>
 
 <body>
-    <a href="./ar/index.html">AR</a>
-    <a href="./dev/index.html">Dev</a>
+    <div hidden>
+        <a href="./ar/index.html">AR</a>
+        <a href="./dev/index.html">Dev</a>
+    </div>
 
-    <div class="container">
-        <div id="list" class="list-group"></div>
+    <div
+        class="d-flex aligns-items-center justify-content-center card text-center w-75 position-absolute top-50 start-50 translate-middle">
+        <div class="card-body">
+            <h1>MuralScan</h1>
+            <div id="list" class="list-group">Loading...</div>
+        </div>
+        <a href="https://ceti.insitute/">ceti.insitute</a>
     </div>
 
     <script async
@@ -24,7 +31,8 @@
             let compatible = XR8.XrDevice.isDeviceBrowserCompatible({ allowedDevices: XR8.XrConfig.device().MOBILE });
 
             let list = document.getElementById("list");
-            fetch("content.json")
+            list.innerHTML = "";
+            fetch("murals.json")
                 .then((response) => response.json())
                 .then((data) => {
                     for (let mural of data.murals) {
@@ -37,7 +45,14 @@
                         list.append(a);
                     }
                 });
+
+            XR8.Vps.projectWayspots().then((projectWayspots) => {
+                projectWayspots.forEach((projectWayspot) => {
+                    console.log('projectWayspot: ', projectWayspot)
+                })
+            })
         }
+
 
         window.XR8 ? onxrloaded() : window.addEventListener('xrloaded', onxrloaded)
 
