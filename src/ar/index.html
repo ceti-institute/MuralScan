@@ -98,8 +98,8 @@
         name: 'cultivate',
 
         onStart: () => {
-          const { scene, camera } = XR8.Threejs.xrScene()  // Get the 3js scene from XR
-          App.initialize(scene, camera);
+          const { scene, camera, renderer } = XR8.Threejs.xrScene()  // Get the 3js scene from XR
+          App.initialize(scene, camera, renderer, true);
         },
 
         onUpdate: () => {

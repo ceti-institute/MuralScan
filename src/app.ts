@@ -47,7 +47,7 @@ class App {
     wayspotData: WayspotData;
     muralData: MuralData;
 
-    initialize(scene, camera, renderer) {
+    initialize(scene, camera, renderer, arMode = false) {
         this.caption = document.getElementById("caption");
         this.detail = document.getElementById("detail");
 
@@ -101,7 +101,7 @@ class App {
         this.scene.add(this.origin);
 
         this.rootContainer = new THREE.Group();
-        // this.rootContainer.visible = false;
+        if (arMode) this.rootContainer.visible = false;
         this.origin.add(this.rootContainer);
 
         this.camera.position.set(0, 1, 0)
