@@ -10,14 +10,14 @@
   "author": "Scott Garner",
   "license": "ISC",
   "devDependencies": {
-    "@parcel/transformer-sass": "^2.8.0",
-    "bootstrap-icons": "^1.10.2",
-    "parcel": "2.8.0",
-    "parcel-reporter-static-files-copy": "^1.4.0"
-  },
-  "dependencies": {
+    "@parcel/transformer-sass": "2.8.0",
+    "@popperjs/core": "2.11.6",
     "@types/three": "^0.144.0",
     "bootstrap": "^5.2.3",
+    "bootstrap-icons": "^1.10.2",
+    "parcel": "^2.8.0",
+    "parcel-reporter-static-files-copy": "^1.4.0",
+    "posthtml-include": "^1.7.4",
     "three": "^0.146.0"
   }
 }

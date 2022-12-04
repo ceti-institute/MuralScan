@@ -105,6 +105,18 @@ class App {
         this.origin.add(this.rootContainer);
 
         this.camera.position.set(0, 1, 0)
+
+        // Resize
+
+        window.addEventListener('resize', () => {
+            this.resize(window.innerWidth, window.innerHeight);
+        });
+    }
+
+    resize(width, height) {
+        this.camera.aspect = width / height;
+        this.camera.updateProjectionMatrix();
+        this.renderer.setSize(width, height);
     }
 
     update() {
