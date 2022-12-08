@@ -13,6 +13,12 @@ interface Offset {
     scale: THREE.Vector3
 }
 
+interface MuralEntry {
+    title: string;
+    artist: string;
+    identifier: string;
+}
+
 interface MuralData {
     svgUrl: string,
     textureUrl: string,
@@ -52,6 +58,7 @@ class App {
         this.detail = document.getElementById("detail");
 
         this.logElement = document.getElementById("log");
+        this.logElement!.hidden = true;
         // console.log(this.info)
 
         // Hide caption/detail initially.
@@ -65,6 +72,13 @@ class App {
         this.detail!.addEventListener("click", () => {
             this.displayDetail(false);
         });
+
+
+        let debugButton = document.getElementById("debug");
+        debugButton!.addEventListener("click", () => {
+            this.logElement!.hidden = !this.logElement?.hidden;
+        });
+
 
         // Fetch data.
         let mural = window.location.hash.substring(1);

@@ -2,7 +2,7 @@
 
 body {
     margin: 0;
-    background: #4a6db4;
+    background: #333333;
     user-select: none;
 }
 
@@ -37,5 +37,9 @@ body {
     bottom: 0;
     right: 0;
     height: 25%;
-    overflow: scroll;
+    overflow-y: auto;
+}
+
+small {
+    font-size: .75em;
 }
