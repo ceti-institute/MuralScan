@@ -1,7 +1,19 @@
 {
     "murals": [
-        "Vanport",
-        "CulturalStreams",
-        "RockofAges"
+        {
+            "artist": "Isaka Shamsud-Din",
+            "title": "Vanport",
+            "identifier": "Vanport"
+        },
+        {
+            "artist": "Isaka Shamsud-Din",
+            "title": "Cultural Streams",
+            "identifier": "CulturalStreams"
+        },
+        {
+            "artist": "Isaka Shamsud-Din",
+            "title": "Rock of Ages",
+            "identifier": "RockofAges"
+        }
     ]
 }

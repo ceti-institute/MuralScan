@@ -38,12 +38,12 @@
                 .then((response) => response.json())
                 .then((data) => {
                     for (let mural of data.murals) {
-                        console.log(mural);
+                        console.log(mural.title);
                         let a = document.createElement("a");
                         a.classList.add("list-group-item");
                         a.classList.add("list-group-item-action");
-                        a.innerHTML = mural;
-                        a.href = ((compatible) ? "/ar/#" : "/dev/#") + mural;
+                        a.innerHTML = "<b>" + mural.title + "</b><br><small>" + mural.artist + "</small>";
+                        a.href = ((compatible) ? "/ar/#" : "/dev/#") + mural.identifier;
                         list.append(a);
                     }
                 });
