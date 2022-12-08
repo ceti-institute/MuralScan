@@ -10,7 +10,7 @@
   "author": "Scott Garner",
   "license": "ISC",
   "devDependencies": {
-    "@parcel/transformer-sass": "2.8.0",
+    "@parcel/transformer-sass": "^2.8.1",
     "@popperjs/core": "2.11.6",
     "@types/three": "^0.144.0",
     "bootstrap": "^5.2.3",

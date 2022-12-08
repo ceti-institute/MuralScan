@@ -5,38 +5,39 @@
         {
             "tag": "FigureA",
             "caption": "This is Figure A.",
-            "detail": "This is detailed information about figure A. It could be any complex bit of data.",
-            "audio": "/murals/Vanport/FigureA.mp3"
-        },
-        {
-            "tag": "FigureB",
-            "caption": "This is Figure B.",
-            "detail": "This is detailed information about figure B. It could be any complex bit of data."
+            "detail": "At the lower left of the painting, two men hoist the body of another man -- not a flood victim, but John Daniels, a young African American community activist.",
+            "credit": "Copyright (c) 1998 Oregonian Publishing Co."
         },
         {
             "tag": "JohnDanielsA",
-            "caption": "This is JohnDanielsA.",
-            "detail": "This is detailed information about JohnDanielsA. It could be any complex bit of data."
+            "caption": "John Daniels (Diver)",
+            "detail": "\"Floating above is the upside-down body of a diver, his back gracefully arching but still suggesting the velocity of his fall.\"",
+            "credit": "Copyright (c) 1998 Oregonian Publishing Co.",
+            "audio": "/murals/Vanport/House.mp3"
         },
         {
             "tag": "JohnDanielsB",
-            "caption": "This is JohnDanielsB.",
-            "detail": "This is detailed information about JohnDanielsB. It could be any complex bit of data."
+            "caption": "John Daniels (Victim)",
+            "detail": "\"He [Daniels] became PSU's junior class president and, later, a teacher who committed suicide.\"",
+            "credit": "Copyright (c) 1998 Oregonian Publishing Co."
         },
         {
             "tag": "Scarf",
-            "caption": "This is a scarf.",
-            "detail": "This is detailed information about Scarf. It could be any complex bit of data."
+            "caption": "Scarf",
+            "detail": "The body is adorned with a scarf patterned in an African motif, a symbol of honor.",
+            "credit": "Copyright (c) 1998 Oregonian Publishing Co."
         },
         {
             "tag": "House",
-            "caption": "This is a house.",
-            "detail": "This is detailed information about House. It could be any complex bit of data."
+            "caption": "290 Broadacres",
+            "detail": "The most explicit reference to Vanport is an address once found in the town: 290 Broadacres.",
+            "credit": "Copyright (c) 1998 Oregonian Publishing Co."
         },
         {
             "tag": "TotemPole",
-            "caption": "This is a totem pole.",
-            "detail": "This is detailed information about TotemPole. It could be any complex bit of data."
+            "caption": "Totem Pole",
+            "detail": "A totem pole rises up the left side, an autobiographical reference to Native American cultures the artist encountered as he grew up here.",
+            "credit": "Copyright (c) 1998 Oregonian Publishing Co."
         }
     ]
 }
