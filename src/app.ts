@@ -35,7 +35,8 @@ class App {
     selected: THREE.Mesh | null = null;
 
     wayspotData: WayspotData;
-    muralData: MuralData;
+
+    mural: Mural;
 
     initialize(scene, camera, renderer, arMode = false) {
         this.caption = document.getElementById("caption");
@@ -46,14 +47,15 @@ class App {
         // console.log(this.info)
 
         // Hide caption/detail initially.
-        this.displayCaption(false);
+        // this.displayCaption(false);
         this.displayDetail(false);
 
         this.caption!.addEventListener("click", () => {
             this.toggleDetail();
         });
 
-        this.detail!.addEventListener("click", () => {
+        let detailExit = document.getElementById("detailExit");
+        detailExit!.addEventListener("click", () => {
             this.displayDetail(false);
         });
 
@@ -71,12 +73,10 @@ class App {
         fetch(muralUrl)
             .then((response) => response.json())
             .then((data) => {
-                this.muralData = data;
-                this.muralData.scale = this.muralData.scale || 1;
-                console.log(data);
-
-                const mural = new Mural(data);
-                this.rootContainer.add(mural);
+                let muralData = data;
+                muralData.scale = muralData.scale || 1;
+                this.mural = new Mural(data);
+                this.rootContainer.add(this.mural);
             });
 
         // fetch("/wayspots/Scott.json")
@@ -139,8 +139,27 @@ class App {
 
                 if (figureData != null) {
                     this.displayCaption(true);
-                    this.caption!.innerText = figureData.caption;
-                    this.detail!.innerText = figureData.detail;
+                    if (this.caption) {
+                        const text = document.getElementById("captionText");
+                        text!.innerText = figureData.caption;
+                    }
+
+                    if (this.detail) {
+                        const title = document.getElementById("detailTitle");
+                        title!.innerText = figureData.caption;
+
+                        const body = document.getElementById("detailBody");
+                        body!.innerText = figureData.detail;
+
+                        const audio = document.getElementById("detailAudio") as HTMLAudioElement;
+                        if (figureData.audio) {
+                            audio.src = figureData.audio;
+                            audio.hidden = false;
+                        } else {
+                            audio.hidden = true;
+                        }
+                    }
+
                     this.log(JSON.stringify(figureData));
                 }
             }
@@ -168,6 +187,9 @@ class App {
         this.detail!.style.visibility = (state == "visible") ? "hidden" : "visible";
     }
 
+    toggleTexture() {
+    }
+
     log(text: string) {
         const element = document.createElement("div");
         element.innerText = (text);
@@ -176,7 +198,7 @@ class App {
     }
 
     findFigure(tag: string): FigureData | null {
-        for (const currentFigureData of this.muralData.figures) {
+        for (const currentFigureData of this.mural.muralData.figures) {
             if (currentFigureData.tag == tag) {
                 return currentFigureData;
             }

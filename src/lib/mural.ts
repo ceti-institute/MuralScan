@@ -12,7 +12,8 @@ interface MuralData {
 interface FigureData {
     tag: string,
     caption: string,
-    detail: string
+    detail: string,
+    audio?: string
 }
 
 class Mural extends THREE.Group {

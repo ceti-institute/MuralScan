@@ -1,11 +1,12 @@
 {
-    "svgUrl": "/murals/Vanport/VanportHigh.svg",
-    "textureUrl": "/murals/Vanport/VanportHigh.png",
+    "svgUrl": "/murals/Vanport/Vanport.svg",
+    "textureUrl": "/murals/Vanport/Vanport.png",
     "figures": [
         {
             "tag": "FigureA",
             "caption": "This is Figure A.",
-            "detail": "This is detailed information about figure A. It could be any complex bit of data."
+            "detail": "This is detailed information about figure A. It could be any complex bit of data.",
+            "audio": "/murals/Vanport/FigureA.mp3"
         },
         {
             "tag": "FigureB",

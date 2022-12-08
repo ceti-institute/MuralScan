@@ -19,7 +19,9 @@ body {
     cursor: pointer;
 }
 
-#detail {
+#detail {}
+
+#detailExit {
     pointer-events: auto;
     cursor: pointer;
 }
@@ -42,4 +44,12 @@ body {
 
 small {
     font-size: .75em;
+}
+
+audio {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    pointer-events: auto;
+    margin: auto;
 }
