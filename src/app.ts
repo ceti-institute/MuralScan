@@ -62,7 +62,8 @@ class App {
 
         let debugButton = document.getElementById("debug");
         debugButton!.addEventListener("click", () => {
-            this.logElement!.hidden = !this.logElement?.hidden;
+            // this.logElement!.hidden = !this.logElement?.hidden;
+            this.mural?.toggleTexture();
         });
 
 
@@ -76,6 +77,7 @@ class App {
                 let muralData = data;
                 muralData.scale = muralData.scale || 1;
                 this.mural = new Mural(data);
+                if (arMode) this.mural.toggleTexture();
                 this.rootContainer.add(this.mural);
             });
 

@@ -95,6 +95,10 @@ class Mural extends THREE.Group {
         this.add(this.planeMesh);
     }
 
+    toggleTexture() {
+        this.planeMesh.visible = !this.planeMesh.visible;
+    }
+
 }
 
 export {

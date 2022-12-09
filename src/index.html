@@ -20,7 +20,9 @@
             <div id="list" class="list-group">Loading...</div>
         </div>
         <p>
-            <a href="https://ceti.insitute/">ceti.insitute</a>
+            <a href="https://ceti.insitute/">ceti.insitute</a> &bull;
+            <a href="https://github.com/ceti-institute/MuralScan/">github</a> &bull;
+            <a href="https://github.com/ceti-institute/MuralScan/wiki">wiki</a>
         </p>
     </div>
 
@@ -42,7 +44,7 @@
                         let a = document.createElement("a");
                         a.classList.add("list-group-item");
                         a.classList.add("list-group-item-action");
-                        a.innerHTML = "<b>" + mural.title + "</b><br><small>" + mural.artist + "</small>";
+                        a.innerHTML = "<h4>" + mural.title + "</h4><small>" + mural.artist + "</small>";
                         a.href = ((compatible) ? "/ar/#" : "/dev/#") + mural.identifier;
                         list.append(a);
                     }
