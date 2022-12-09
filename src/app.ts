@@ -196,6 +196,11 @@ class App {
             }
         }
 
+        if (visible == false) {
+            const audio = document.getElementById("detailAudio") as HTMLAudioElement;
+            audio.pause();
+        }
+
         this.detail!.style.visibility = (visible) ? "visible" : "hidden";
     }
 
