@@ -47,11 +47,11 @@ class App {
         // console.log(this.info)
 
         // Hide caption/detail initially.
-        // this.displayCaption(false);
+        this.displayCaption(false);
         this.displayDetail(false);
 
         this.caption!.addEventListener("click", () => {
-            this.toggleDetail();
+            this.displayDetail(true);
         });
 
         let detailExit = document.getElementById("detailExit");
@@ -135,35 +135,7 @@ class App {
                 (this.selected.material as THREE.Material).opacity = .25;
                 this.log(intersects[intersects.length - 1].object.name);
 
-                const tag = intersects[intersects.length - 1].object.name;
-                const figureData: FigureData | null = this.findFigure(tag);
-                this.log(JSON.stringify(figureData));
-
-                if (figureData != null) {
-                    this.displayCaption(true);
-                    if (this.caption) {
-                        const text = document.getElementById("captionText");
-                        text!.innerText = figureData.caption;
-                    }
-
-                    if (this.detail) {
-                        const title = document.getElementById("detailTitle");
-                        title!.innerText = figureData.caption;
-
-                        const body = document.getElementById("detailBody");
-                        body!.innerText = figureData.detail;
-
-                        const audio = document.getElementById("detailAudio") as HTMLAudioElement;
-                        if (figureData.audio) {
-                            audio.src = figureData.audio;
-                            audio.hidden = false;
-                        } else {
-                            audio.hidden = true;
-                        }
-                    }
-
-                    this.log(JSON.stringify(figureData));
-                }
+                this.displayCaption(true);
             }
         } else {
             this.deselect();
@@ -177,19 +149,54 @@ class App {
     }
 
     displayCaption(visible: boolean) {
+        // Refresh contents.
+        if (visible && this.selected) {
+            const text = document.getElementById("captionText");
+            const figureData: FigureData | null = this.findFigure(this.selected.name);
+            if (figureData) text!.innerText = figureData.caption;
+        }
         this.caption!.style.visibility = (visible) ? "visible" : "hidden";
     }
 
     displayDetail(visible: boolean) {
+        // Refresh contents.
+        if (visible && this.selected) {
+            const figureData: FigureData | null = this.findFigure(this.selected.name);
+
+            if (figureData) {
+                const title = document.getElementById("detailTitle");
+                title!.innerText = figureData.caption;
+
+                const body = document.getElementById("detailBody");
+                body!.innerText = figureData.detail;
+
+                if (figureData.credit) {
+                    const credit = document.getElementById("detailCredit");
+                    credit!.innerHTML = figureData.credit;
+                }
+
+                const audio = document.getElementById("detailAudio") as HTMLAudioElement;
+                if (figureData.audio) {
+                    audio.src = figureData.audio;
+                    audio.hidden = false;
+                } else {
+                    audio.pause();
+                    audio.src = "";
+                    audio.hidden = true;
+                }
+
+                const image = document.getElementById("detailImage") as HTMLImageElement;
+                if (figureData.image) {
+                    image.src = figureData.image;
+                    image.hidden = false;
+                } else {
+                    image.src = "";
+                    image.hidden = true;
+                }
+            }
+        }
+
         this.detail!.style.visibility = (visible) ? "visible" : "hidden";
-    }
-
-    toggleDetail() {
-        let state = this.detail!.style.visibility;
-        this.detail!.style.visibility = (state == "visible") ? "hidden" : "visible";
-    }
-
-    toggleTexture() {
     }
 
     log(text: string) {
