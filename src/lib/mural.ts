@@ -47,7 +47,8 @@ class Mural extends THREE.Group {
                 // console.log(path?.userData?.node);
 
                 const material = new THREE.MeshBasicMaterial({
-                    color: new THREE.Color("#ffff00"),// path.color,
+                    // color: new THREE.Color("#ffff00"),// path.color,
+                    color: path.color,
                     side: THREE.DoubleSide,
                     // depthWrite: false,
                     transparent: true,
