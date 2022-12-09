@@ -77,7 +77,7 @@ class App {
                 let muralData = data;
                 muralData.scale = muralData.scale || 1;
                 this.mural = new Mural(data);
-                if (arMode) this.mural.toggleTexture();
+                // if (arMode) this.mural.toggleTexture();
                 this.rootContainer.add(this.mural);
             });
 
